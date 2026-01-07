@@ -23,9 +23,11 @@ hr { margin:20px 0; border-color:#555; }
 
 <!-- Icône PWA / iPhone -->
 <link rel="apple-touch-icon" href="icone.png">
+<link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Bardage Boussiquet">
+
 </head>
 <body>
 <div class="container">
@@ -58,7 +60,7 @@ hr { margin:20px 0; border-color:#555; }
 
     <hr>
 
-    <!-- Options à la fin -->
+    <!-- Options -->
     <label class="toggle-label">
         <input type="checkbox" id="claireVoie"> Claire-voie
     </label>
@@ -110,7 +112,6 @@ const longueurCouvInput = document.getElementById("longueurCouv");
 
 const pertesButtons = document.querySelectorAll(".buttons-pertes button");
 
-// Fonction de calcul
 function calculer() {
     let surface = parseFloat(surfaceInput.value) || 0;
     let lame = parseFloat(largeurInput.value) || 0;
@@ -118,7 +119,6 @@ function calculer() {
     let longueurLame = parseFloat(longueurInput.value) || 1;
     let pertes = parseFloat(pertesInput.value) || 0;
 
-    // Bardage
     let pasMetre = (lame + vide)/1000;
     let ratioBrut = pasMetre > 0 ? 1/pasMetre : 0;
     let ratioAvecPerte = ratioBrut * (1 + pertes/100);
@@ -138,7 +138,6 @@ function calculer() {
         totalCouv = nbCouv * longueurCouv;
     }
 
-    // Préparer affichage conditionnel
     let infoCouv = includeCouvCheck.checked ? 
         `Linéaire couvre-joints : ${totalCouv.toFixed(1)} ml<br>
          Nombre de couvre-joints : ${nbCouv}` : '';
@@ -147,7 +146,6 @@ function calculer() {
         `Ratio clair-voie brut : ${ratioBrut.toFixed(2)} ml/m²<br>
          Ratio clair-voie avec pertes : ${ratioAvecPerte.toFixed(2)} ml/m²` : '';
 
-    // Affichage final
     resultDiv.innerHTML = `Ratio brut : ${ratioBrut.toFixed(2)} ml/m²<br>
                            Ratio avec pertes : ${ratioAvecPerte.toFixed(2)} ml/m²<br>
                            Total bardage avec pertes : ${totalBardage.toFixed(1)} ml<br>
